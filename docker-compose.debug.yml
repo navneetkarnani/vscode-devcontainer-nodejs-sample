@@ -1,6 +1,11 @@
 version: '3.4'
 
 services:
+  db:
+    image: mongo:3.6.20-xenial
+    ports:
+      - 27017:27017
+    restart: always
   sample:
     image: sample
     build:
@@ -8,9 +13,10 @@ services:
       dockerfile: Dockerfile.debug
     environment:
       NODE_ENV: development
+      PORT: 8080
+      MONGO_DB: mongodb://db:27017/sampledb
     ports:
-      - 3000:3000
-      - 9229:9229
+      - 8080:8080
     volumes: 
-      - /usr/src/app/node_modules  
-    command: ["node", "--inspect=0.0.0.0:9229", "./bin/www"]
+      - /usr/src/app/node_modules
+    command: ["node", "./bin/www"]
