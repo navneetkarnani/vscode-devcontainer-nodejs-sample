@@ -12,7 +12,23 @@ services:
     env_file: 
       - debug.env
     volumes: 
-      - node_cache:/usr/src/app/node_modules    
+      - node_cache:/usr/src/app/node_modules
+    command: ["npm", "start"]
+  ngrok:
+    container_name: ngrok
+    image: wernight/ngrok
+    depends_on:
+      - sample
+    networks:
+      - server
+    ports:
+      - 4040:4040
+    environment:
+      - NGROK_PROTOCOL=HTTP
+      - NGROK_PORT=sample:8080
+      - NGROK_REGION=ap
+      - NGROK_DEBUG=true
+      - NGROK_BINDTLS=true
 volumes:
   node_cache:
   mongo_data:
