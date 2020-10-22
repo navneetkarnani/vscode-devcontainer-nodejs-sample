@@ -6,6 +6,9 @@ services:
     ports:
       - 27017:27017
     restart: always
+    volumes: 
+      - mongo_data:/data/db
+      - mongo_config_db:/data/configdb
   sample:
     image: sample
     build:
@@ -18,5 +21,9 @@ services:
     ports:
       - 8080:8080
     volumes: 
-      - /usr/src/app/node_modules
+      - node_cache:/usr/src/app/node_modules
     command: ["node", "./bin/www"]
+volumes:
+  node_cache:
+  mongo_data:
+  mongo_config_db:
