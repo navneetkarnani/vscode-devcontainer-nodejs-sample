@@ -10,7 +10,7 @@ services:
       - mongo_data:/data/db
       - mongo_config_db:/data/configdb
   sample:
-    image: sample
+    image: sample:debug
     build:
       context: .
       dockerfile: Dockerfile.debug

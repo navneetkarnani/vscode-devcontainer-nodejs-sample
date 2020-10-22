@@ -2,7 +2,7 @@ version: '3.4'
 
 services:
   sample:
-    image: sample
+    image: sample:prod
     build: .
     environment:
       NODE_ENV: production
