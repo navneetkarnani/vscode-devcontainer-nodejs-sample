@@ -2,27 +2,17 @@ version: '3.4'
 
 services:
   db:
-    image: mongo:3.6.20-xenial
     ports:
       - 27017:27017
-    restart: always
-    volumes: 
-      - mongo_data:/data/db
-      - mongo_config_db:/data/configdb
   sample:
     image: sample:debug
     build:
       context: .
       dockerfile: Dockerfile.debug
-    environment:
-      NODE_ENV: development
-      PORT: 8080
-      MONGO_DB: mongodb://db:27017/sampledb
-    ports:
-      - 8080:8080
+    env_file: 
+      - debug.env
     volumes: 
-      - node_cache:/usr/src/app/node_modules
-    command: ["node", "./bin/www"]
+      - node_cache:/usr/src/app/node_modules    
 volumes:
   node_cache:
   mongo_data:

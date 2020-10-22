@@ -1,10 +1,30 @@
 version: '3.4'
 
 services:
+  db:
+    image: mongo:3.6.20-xenial
+    restart: always
+    volumes: 
+      - mongo_data:/data/db
+      - mongo_config_db:/data/configdb
+    networks: 
+      - db
   sample:
     image: sample:prod
-    build: .
-    environment:
-      NODE_ENV: production
+    build:
+      context: .
+      dockerfile: Dockerfile
+    env_file:
+      - prod.env
     ports:
-      - 3000:3000
+      - 8080:8080
+    command: ["node", "./bin/www"]
+    networks: 
+      - db
+      - server
+volumes:
+  mongo_data:
+  mongo_config_db:
+networks: 
+  db:
+  server:
