@@ -11,5 +11,7 @@ services:
     ports:
       - 3000:3000
     volumes: 
-      - /usr/src/app/node_modules
+      - node_cache:/usr/src/app/node_modules
       - .:/usr/src/app
+volumes:
+  node_cache:
