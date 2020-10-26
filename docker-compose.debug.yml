@@ -21,9 +21,9 @@ services:
     ports:
       - 8080:8080
     volumes: 
-      - node_cache:/usr/src/app/node_modules
-    command: ["node", "./bin/www"]
+      - /usr/src/app/node_modules
+      - .:/usr/src/app
+    command: ["npm", "run", "debug"]
 volumes:
-  node_cache:
   mongo_data:
   mongo_config_db:
